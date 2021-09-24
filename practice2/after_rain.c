@@ -20,9 +20,11 @@ void insert(Node** head_ptr, char* color, int dest)
     Node *cursor, *new;
     int i = 0;
 
+    // traverse to i-th node
     for (cursor = *head_ptr; i < dest && cursor->next != NULL; i++)
         cursor = cursor->next;
 
+    // new node for added color
     new = (Node*)malloc(sizeof(Node));
     strncpy(new->color, color, sizeof(new->color));
     new->next = cursor->next;
@@ -33,9 +35,14 @@ void insert(Node** head_ptr, char* color, int dest)
 
 void erase1(Node** head_ptr, int dest)
 {
+    // nothing left to delete, return
+    if ((*head_ptr)->next == NULL)
+        return;
+    
     Node *cursor, *prev;
     int i = 0;
 
+    // traverse to i-th node
     for (cursor = *head_ptr; i < dest && cursor->next != NULL; i++) {
         prev = cursor;
         cursor = cursor->next;
@@ -51,6 +58,7 @@ void erase2(Node** head_ptr, char* color)
 {
     Node *cursor, *prev;
 
+    // traverse and delete matching nodes
     for (cursor = *head_ptr; cursor != NULL; ) {
         if (!strcmp(cursor->color, color)) {
             prev->next = cursor->next;
@@ -69,16 +77,28 @@ void reverse(Node** head_ptr, int dest1, int dest2)
     Node *prev, *cursor, *next, *reverse_prev, *reverse_tail;
     int i = 0;
 
+    // no need to reverse only one node
+    if (dest1 == dest2)
+        return;
+
+    // traverse to dest1-th node
     for (cursor = *head_ptr; i < dest1 && cursor->next != NULL; i++) {
         prev = cursor;
         cursor = cursor->next;
     }
 
+    // dest1-th node is the end node, no need to reverse
+    if (cursor->next == NULL)
+        return;
+
+    // mark the element where the reversed list will link back
+    // also the tail of the reversed elements
     reverse_prev = prev;
     reverse_tail = cursor;
     prev = cursor;
     cursor = cursor->next;
 
+    // reverse the linked list as we traverse to (dest2 + 1)-th node
     for (i++; i <= dest2 && cursor != NULL; i++) {
         next = cursor->next;
         cursor->next = prev;

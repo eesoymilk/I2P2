@@ -11,7 +11,12 @@ typedef struct _NODE
 
 Node *head, *tail;
 
-// TEMPLATE CODE STRATS HERE
+//****************************//
+// TEMPLATE CODE STARTS HERE! //
+//****************************//
+
+// There are BUGS in the OJ
+// You can fix them by defining those 3 lines
 #define prev ptr_to_prev_node
 #define ch character
 #define next ptr_to_next_node
@@ -29,6 +34,7 @@ void insert(Node** cur, char c)
     new_node->ptr_to_next_node = nxt;
     cursor->ptr_to_next_node = new_node;
 
+    // UPDATE tail
     if (cursor == tail)
         tail = new_node;
 
@@ -40,12 +46,14 @@ void deletion(Node** cur)
     if (*cur == tail)
         return;
 
+    // for deletion, we have to delete the next one on the *cur
     Node *cursor = (*cur)->ptr_to_next_node, *prv = *cur, *nxt;
 
     nxt = cursor->ptr_to_next_node;
     nxt->ptr_to_prev_node = prv;
     prv->ptr_to_next_node = nxt;
 
+    // UPDATE tail
     if (cursor == tail)
         tail = prv;
     free(cursor);
@@ -65,6 +73,7 @@ void backspace(Node** cur)
     prv->ptr_to_next_node = nxt;
     *cur = prv;
 
+    // UPDATE tail
     if (cursor == tail)
         tail = prv;
     free(cursor);
@@ -97,8 +106,11 @@ void go_end(Node **cur)
     *cur = tail;
     return;
 }
-// TEMPLATE CODE ENDS HERE
+//****************************//
+//  TEMPLATE CODE ENDS HERE!  //
+//****************************//
 
+// show function is provided in the append code, no need to turn in.
 void show()
 {
     Node *now = head->next;

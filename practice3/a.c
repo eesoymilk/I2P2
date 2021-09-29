@@ -9,6 +9,8 @@ typedef struct _NODE
     struct _NODE *prev;
 } Node;
 
+// keep track of the size of the squence
+// it'll be handy later
 int sqn_size = 1;
 
 void insert(Node** cur_ptr, int val1, int val2)
@@ -18,16 +20,20 @@ void insert(Node** cur_ptr, int val1, int val2)
     Node* new_node;
 
     for (int i = 0; i < val2; i++) {
+        // INITIALIZE
         new_node = (Node*)malloc(sizeof(Node));
         new_node->val = val1;
         sqn_size++;
 
+        // INSERT
         new_node->prev = cursor;
         cursor->next = new_node;
 
+        // NEXT NODE
         cursor = cursor->next;
     }
 
+    // LINK BACK TO WHERE WE STARTED
     cursor->next = return_node;
     return_node->prev = cursor;
 
@@ -47,6 +53,7 @@ void erase(Node** cur_ptr, int val)
         cursor = next;
     }
 
+    // LINK BACK TO WHERE WE STARTED
     cursor->prev = start_node;
     start_node->next = cursor;
 
@@ -56,14 +63,14 @@ void erase(Node** cur_ptr, int val)
 Node* move(Node** cur_ptr, int val)
 {   
     Node *cursor = *cur_ptr;
-    int i;
 
+    // val needs to bn modded or else TLE
     if (val > 0) {
-        i = val % sqn_size;
-        while (i--) cursor = cursor->next;
+        val = val % sqn_size;
+        while (val--) cursor = cursor->next;
     } else if (val < 0) {
-        i = (-val) % sqn_size;
-        while (i--) cursor = cursor->prev;
+        val = (-val) % sqn_size;
+        while (val--) cursor = cursor->prev;
     }
 
     return cursor;

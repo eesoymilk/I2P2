@@ -24,17 +24,13 @@ void insert(Node** cur, char c)
     new_node->character = c;
     new_node->ptr_to_prev_node = cursor;
 
-    if (cursor == tail) {
-        tail = new_node;
-        nxt = head;
-        head->ptr_to_prev_node = new_node;
-    } else {
-        nxt = cursor->ptr_to_next_node;
-        nxt->ptr_to_prev_node = new_node;
-    }
-
+    nxt = cursor->ptr_to_next_node;
+    nxt->ptr_to_prev_node = new_node;
     new_node->ptr_to_next_node = nxt;
     cursor->ptr_to_next_node = new_node;
+
+    if (cursor == tail)
+        tail = new_node;
 
     return;
 }
@@ -46,12 +42,12 @@ void deletion(Node** cur)
 
     Node *cursor = (*cur)->ptr_to_next_node, *prv = *cur, *nxt;
 
-    if (cursor == tail)
-        tail = prv;
     nxt = cursor->ptr_to_next_node;
     nxt->ptr_to_prev_node = prv;
     prv->ptr_to_next_node = nxt;
-    *cur = prv;
+
+    if (cursor == tail)
+        tail = prv;
     free(cursor);
 
     return;
@@ -64,13 +60,13 @@ void backspace(Node** cur)
 
     Node *cursor = *cur, *prv = (*cur)->ptr_to_prev_node, *nxt;
 
-    if (cursor == tail)
-        tail = prv;
-
     nxt = cursor->ptr_to_next_node;
     nxt->ptr_to_prev_node = prv;
     prv->ptr_to_next_node = nxt;
     *cur = prv;
+
+    if (cursor == tail)
+        tail = prv;
     free(cursor);
 
     return;

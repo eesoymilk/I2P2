@@ -47,13 +47,14 @@ void deletion(Node** cur)
         return;
 
     // for deletion, we have to delete the next one on the *cur
+    // cursor is the node we're deleting
     Node *cursor = (*cur)->ptr_to_next_node, *prv = *cur, *nxt;
 
     nxt = cursor->ptr_to_next_node;
     nxt->ptr_to_prev_node = prv;
     prv->ptr_to_next_node = nxt;
 
-    // UPDATE tail
+    // UPDATE tail IF NEEDED
     if (cursor == tail)
         tail = prv;
     free(cursor);
@@ -73,7 +74,7 @@ void backspace(Node** cur)
     prv->ptr_to_next_node = nxt;
     *cur = prv;
 
-    // UPDATE tail
+    // UPDATE tail IF NEEDED
     if (cursor == tail)
         tail = prv;
     free(cursor);
@@ -131,6 +132,8 @@ int main(int arg, char *argv[]) {
     int n, input_num;
     Node *cursor;
 
+    // first node, head, is a sentinel
+    // it contains nothing
     head = (Node*)malloc(sizeof(Node));
     head->character = '\0';
     head->ptr_to_next_node = head;

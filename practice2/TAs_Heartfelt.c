@@ -7,7 +7,7 @@ int main()
     /*  float: |01000010|00000001|01000111|10101110|    */
     /*                                                  */
     /*  when we do p = (int*)&x,                        */
-    /*  p is an int pointer that points to the float    */
+    /*  p is an int pointer                             */
     /*  that points to the previous float;              */
     /*  however, p is now an int pointer:               */
     /*  p ->   |01000010|00000001|01000111|10101110|    */

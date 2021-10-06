@@ -1,8 +1,20 @@
 #include <stdio.h>
 #define LL long long
 
-// void MatrixPrint(LL);
+// You can use the function to print out 2 by 2 matrix if you are interested
+// void MatrixPrint(LL a[2][2]) {
+//     for (int i = 0; i < 2; i++) {
+//         for (int j = 0; j < 2; j++)
+//             printf(" %d", a[i][j]);
+//         putchar('\n');
+//     }
+// }
 
+// Multiply two 2 by 2 MATRICES MATRIX(a) and MATRIX(b)
+// Then, store the result into MATRIX(a)
+// Program Representation:
+// MATRIX(c) = MATRIX(a) * MATRIX(c)
+// MATRIX(a) = MATRIX(c)
 void MatrixMul(LL a[2][2], LL b[2][2]) {
     LL c[2][2] = {0};
 
@@ -35,11 +47,3 @@ int main()
 
     return 0;
 }
-
-// void MatrixPrint(LL a[2][2]) {
-//     for (int i = 0; i < 2; i++) {
-//         for (int j = 0; j < 2; j++)
-//             printf(" %d", a[i][j]);
-//         putchar('\n');
-//     }
-// }

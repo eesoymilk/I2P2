@@ -22,7 +22,7 @@ Node* buildTree(int* In, int* Pre, int instart, int inend)
         return NULL;
 
     Node *root = (Node*)malloc(sizeof(Node));
-    root->VAL = Pre[preidx++];
+    root->VAL = Pre             [preidx++];
     root->RT = NULL;
     root->LT = NULL;
 
@@ -57,11 +57,9 @@ void freeTree(Node *root)
 {
     if (root == NULL)   return;
 
-    Node *right = root->RT;
-    Node *left = root->LT;
+    freeTree(root->LT);
+    freeTree(root->RT);
     free(root);
-    freeTree(right);
-    freeTree(left);
 }
 
 int main(void)

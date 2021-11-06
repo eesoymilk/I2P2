@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "sstream": "c",
-        "regex": "c"
+        "regex": "c",
+        "random": "c"
     }
 }

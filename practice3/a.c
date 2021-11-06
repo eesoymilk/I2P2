@@ -103,7 +103,7 @@ int main() {
 
     while(n--) {
         scanf("%s", buf);
-        if (!strcmp (buf, "insert")) {
+        if (!strcmp(buf, "insert")) {
             scanf("%d%d", &val1, &val2);
             insert(&cursor, val1, val2);
         } else if (!strcmp(buf, "erase")) {

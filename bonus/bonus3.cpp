@@ -26,12 +26,21 @@ void PrintVec(const vector<LL>& vec)
     cout << endl;
 }
 
-int MinOptUB(const vector<LL>& psum, int l, int r, LL m)
+int MinOptUB(const Skills& a, const vector<LL>& psum, int l, int r, LL m)
 {
-    int ub = (1 + n) / 2;
+    int ub;
 
+    // ub = 5 -> l = 6 -> ub = 8 -> r = 8 -> ub = 7 -> r = 7
+    // -> ub = 6 -> r = 6 (l = 6) ->
+
+    // l = 6, r = 9 -> ub = 7 -> l = 7 -> ub = 8 -> l = 8 -> l = 9 
     while (l < r) {
-        if ()
+        ub = (l + r) / 2;
+        if (m >= a[ub].first * ub - psum[ub]) {
+            l = ub + 1;
+        } else {
+            r = ub;
+        }
     }
     return ub;
 }
@@ -55,8 +64,14 @@ int main()
     for (int i = 1; i <= n; i++)
         psum[i] = psum[i - 1] + a[i].first;
 
+    cout << "a: ";
+    PrintPairs(a);
+    cout << "psum: ";
+    PrintVec(psum);
+
     // Real Shit
     for (int i = 0; i <= n; i++) {
+        cout << "\niteration " << i + 1 << ":\n";
         if (i > 0) {
             if (m < x - a[n - i + 1].first) break;
             LL diff = x - a[n - i + 1].first;
@@ -64,21 +79,30 @@ int main()
             a[n - i + 1].first = x;
             psum.pop_back();
         }
+        cout << "a: ";
         PrintPairs(a);
+        cout << "psum: ";
         PrintVec(psum);
-        
-        int ub = MinOptUB(psum, 0, n - i, m);
-        LL S_tmp = A * i + B * ub;   // LL
+        cout << "remaining m: " << m << endl;
+
+        int ub = MinOptUB(a, psum, 0, n - i, m);
+        LL S_tmp = A * i + B * a[ub].first;   // LL
         if (S < S_tmp) {
+            cout << "S is updated!!!\n";
             S = S_tmp;
             int min = a[ub].first;
             sol = a;
-            for (i = 1; i < ub; i++)
+            for (int i = 1; i < ub; i++)
                 sol[i].first = min;
         }
+        cout << "S = " << S << endl;
+        
+        
+        cout << "sol: ";
+        PrintPairs(sol);
     }
 
-    cout << "m = " << m; 
+    cout << "m = " << m << endl;
 
     return 0;
 }

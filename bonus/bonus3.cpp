@@ -8,13 +8,13 @@ using Skills = vector<pair<LL, LL>>;
 
 int MinOptUB(const Skills &a, const vector<LL> &psum, LL l, LL r, LL m)
 {
-    LL ub = (l + r) / 2;
+    LL ub;
     while (l < r) {
-        if (m >= a[ub].first * ub - psum[ub])
-            l = ub + 1;
-        else
-            r = ub;
         ub = (l + r) / 2;
+        if (psum[ub] > m)
+            r = ub;
+        else 
+            l = ub + 1;
     }
     return ub - 1;
 }

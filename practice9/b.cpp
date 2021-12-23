@@ -1,46 +1,48 @@
 #include <cstring>
 #include <bits/stdc++.h>
+using namespace std;
 const int MOD = 10007;
 const int MAX_N = 102;
-class Matrix {
-    public:
-        Matrix() {
-            row = col = 0;
-            memset(mat, 0, sizeof(mat));
-        }
-        // TODO
-        Matrix(int r, int c);
-        const int &getrow() {
-            return row;
-        }
-        const int &getcol() {
-            return col;
-        }
-        // TODO
-        int *operator[] (const int &x);
-        const int *operator[] (const int &x) const {
-            return mat[x];
-        }
-        // TODO
-        Matrix operator+ (const Matrix &x) const;
-        // TODO: note that this function is declared with the keyword "friend"
-        friend Matrix operator* (const Matrix &x, const Matrix &y);
-        void print() {
-            for(int i=0;i<row;i++) {
-                if(i==0) std::cout << "/";
-                else if(i==row-1) std::cout << "\\";
-                else std::cout << "|";
-                for(int j=0;j<col;j++) {
-                    std::cout << std::right << std::setw(8) << mat[i][j];
-                }
-                if(i==0) std::cout << " \\\n";
-                else if(i==row-1) std::cout << " /\n";
-                else std::cout << " |\n";
+class Matrix
+{
+private:
+    int mat[MAX_N][MAX_N];
+    int row, col;
+public:
+    Matrix() {
+        row = col = 0;
+        memset(mat, 0, sizeof(mat));
+    }
+    // TODO
+    Matrix(int r, int c);
+    const int &getrow() {
+        return row;
+    }
+    const int &getcol() {
+        return col;
+    }
+    // TODO
+    int *operator[] (const int &x);
+    const int *operator[] (const int &x) const {
+        return mat[x];
+    }
+    // TODO
+    Matrix operator+ (const Matrix &x) const;
+    // TODO: note that this function is declared with the keyword "friend"
+    friend Matrix operator* (const Matrix &x, const Matrix &y);
+    void print() {
+        for(int i=0;i<row;i++) {
+            if(i==0) std::cout << "/";
+            else if(i==row-1) std::cout << "\\";
+            else std::cout << "|";
+            for(int j=0;j<col;j++) {
+                std::cout << std::right << std::setw(8) << mat[i][j];
             }
+            if(i==0) std::cout << " \\\n";
+            else if(i==row-1) std::cout << " /\n";
+            else std::cout << " |\n";
         }
-    private:
-        int mat[MAX_N][MAX_N];
-        int row, col;
+    }
 };
 
 Matrix::Matrix(int r, int c)
@@ -60,6 +62,8 @@ Matrix Matrix::operator+ (const Matrix &x) const
         res[i][j] = ((mat[i][j] + x[i][j]) % MOD + MOD) % MOD;
     return res;
 }
+
+// Not Member Function but "friend"
 Matrix operator* (const Matrix &x, const Matrix &y)
 {
     Matrix res(x.row, y.col);
@@ -69,4 +73,32 @@ Matrix operator* (const Matrix &x, const Matrix &y)
         res[i][k] = (res[i][k] % MOD + MOD) % MOD;
     }
     return res;
+}
+
+int main()
+{
+    int R, C;
+    long long T;
+    char OP;
+
+    cin >> R >> C >> T >> OP;
+
+    Matrix M(R, C), Res(R, C);
+    for (int i = 0; i < R; i++)
+        for (int j = 0; j < C; j++)
+            cin >> M[i][j];
+
+    if (OP == '*') {
+        for (int i = 0; i < R; i++)
+            Res[i][i] = 1;
+        for (int i = 0; i < T; i++)
+            Res = Res * M;
+    } else if (OP == '+') {
+        for (int i = 0; i < T; i++)
+            Res = Res + M;
+    }
+
+    Res.print();
+
+    return 0;
 }

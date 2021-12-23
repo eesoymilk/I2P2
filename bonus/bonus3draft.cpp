@@ -6,8 +6,6 @@
 using namespace std;
 using Skills = vector<pair<int, int>>;
 
-int n;
-
 void PrintPairs(const Skills &pairs)
 {
     for (auto pair : pairs)

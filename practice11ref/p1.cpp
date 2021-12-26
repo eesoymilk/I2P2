@@ -1,7 +1,4 @@
-#include <iostream>
-#include <map>
-#include <set>
-#include <tuple>
+#include <bits/stdc++.h>
 using namespace std;
 
 // count vowel, last vowel

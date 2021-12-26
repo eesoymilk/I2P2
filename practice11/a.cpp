@@ -1,32 +1,17 @@
-#include <iostream>
-#include <vector>
-#include <set>
-#include <map>
-#include <tuple>
-#include <string>
+// #include <iostream>
+// #include <vector>
+// #include <set>
+// #include <map>
+// #include <tuple>
+// #include <string>
+#include <bits/stdc++.h>
 using namespace std;
+using WORD = pair<int, char>;
 
 const set<char> VOWEL = {'a', 'e', 'i', 'o', 'u'};
 
 // Possible # of first/second words in both lines of the lyric
 int PerfectMatch = 0, VowelCntMatch[201] = {0};
-
-class WORD
-{
-private:
-public:
-    int cnt_v = 0;
-    char lst_v = '\0';
-    WORD(const string& word)
-    {
-        for (auto c : word) {
-            if (VOWEL.find(c) != VOWEL.end()) {
-                cnt_v++;
-                lst_v = c;
-            }
-        }
-    }
-};
 
 // A lyric is good if and only if:
 
@@ -36,27 +21,40 @@ public:
 
 int main()
 {
-    int n, res;
+    int n, res = 0;
     string buf;
     map<WORD, int> dict;
 
     cin >> n;
     for (int i = 0; i < n; i++) {
         cin >> buf;
-        WORD word(buf);
-        if (dict.find(word) != dict.end()) {
-            dict.insert(pair<WORD, int>(word, 1));
-        } else {
-            dict[word]++;
+        // cout << "You typed: " << buf << '\n';
+        int cnt_v = 0;
+        char last_v;
+        for (auto c : buf) {
+            if (VOWEL.find(c) == VOWEL.end())
+                continue;
+            cnt_v++;
+            last_v = c;
         }
+        WORD word{cnt_v, last_v};
+
+        // cout << '(' << word.first << ", " << word.second << ")\n";
+        // cout << "Vowel Count: " << word.first << '\n';
+        // cout << "Last Vowel: " << word.second << '\n';
+        dict[word]++;
     }
+
+    // for (auto word : dict) {
+    //     cout << '(' << word.first.first << ", " << word.first.second << "): " << word.second << '\n';
+    // }
 
     // count maximum numbers of possible sw;
     for (auto iter = dict.begin(); iter != dict.end(); iter++) {
-        if (iter->second >= 2)
+        if (iter->second >= 2) {}
             PerfectMatch += iter->second / 2;
         if (iter->second %= 2)
-            VowelCntMatch[(iter->first).cnt_v]++;
+            VowelCntMatch[(iter->first).first]++;
     }
     // Greedy matching
     for (auto recur : VowelCntMatch) {

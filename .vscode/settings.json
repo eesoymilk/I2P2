@@ -12,6 +12,9 @@
         "vector": "cpp",
         "cmath": "cpp",
         "complex": "cpp",
-        "initializer_list": "cpp"
+        "initializer_list": "cpp",
+        "bitset": "cpp",
+        "iosfwd": "cpp",
+        "istream": "cpp"
     }
 }

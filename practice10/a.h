@@ -21,7 +21,7 @@ class BigInt{
         int sign;
 };
 
-istream& operator>>(istream &in,  BigInt &b)  
+istream& operator>>(istream &in, BigInt &b)  
 {
     string ch;
     in >> ch;
@@ -39,7 +39,7 @@ istream& operator>>(istream &in,  BigInt &b)
     return in;
 }
 
-ostream& operator<<(ostream &out,  BigInt b)  
+ostream& operator<<(ostream &out, BigInt b)  
 {
     out << ((b.sign == -1) ? "-" : "");
     out << b.m[b.l - 1];
@@ -52,7 +52,7 @@ ostream& operator<<(ostream &out,  BigInt b)
     return out;
 }
 
-BigInt BigInt::operator +(const BigInt &y)
+BigInt BigInt::operator+(const BigInt& y)
 {
     BigInt x(*this);
 	int i;
@@ -80,7 +80,8 @@ BigInt BigInt::operator +(const BigInt &y)
 	return x;
 }
 
-BigInt BigInt::operator -( const BigInt &y ){
+BigInt BigInt::operator-(const BigInt& y)
+{
     BigInt x(*this);
 	int i;
 	long long h;

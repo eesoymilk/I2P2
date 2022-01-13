@@ -16,8 +16,7 @@ int cmp(const void *L, const void *R)
 int UPB(int t)
 {
 	int l=0, r=n, mid;
-	while(l<r)
-	{
+	while(l<r) {
 		mid = (l+r)/2;
 		if(a[mid] > t) r = mid;
 		else l = mid+1;
